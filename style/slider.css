@@ -5,8 +5,26 @@
     overflow: hidden;
 }
 
-.slider-line{
+#slider-line{
     display: flex;
     background:  greenyellow;
     transition: all ease 1s;
+}
+#slider-line img{
+    width: 100%;
+}
+
+/* Кружочки */
+.slider-dots {
+    text-align: center;
+}
+.slider-dots-item{
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 2px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
 }
