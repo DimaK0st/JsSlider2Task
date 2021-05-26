@@ -72,3 +72,8 @@
     margin: auto;
 }
 
+@media screen and (max-width: 1200px) {
+    .slider {
+        max-width: 100%;
+    }
+}
