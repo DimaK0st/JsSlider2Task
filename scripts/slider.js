@@ -9,10 +9,18 @@ let stepAutoSlider = 3000;//ms
 autoSlider();
 
 // document.body.onload = addElement;
-window.addEventListener("resize", init)
+window.addEventListener("resize", removeElements)
 init();
 var my_div = newDiv = null;
 
+function removeElements() {
+    elements = document.querySelectorAll('.slider-dots')
+
+    elements[0].parentNode.removeChild(elements[0]);
+
+
+    init();
+}
 
 function init() {
     addElement();
@@ -33,8 +41,8 @@ async function scrollingSlider(step, current) {
         count++;
     } else if (step === "prev") {
         count--;
-    }else if(step==="current"){
-        count=current;
+    } else if (step === "current") {
+        count = current;
     }
 
     if (count + 1 > images.length) {
@@ -51,7 +59,6 @@ async function scrollingSlider(step, current) {
 }
 
 function autoSlider() {
-    timer = setTimeout(scrollingSlider, stepAutoSlider, "next")
     console.log(timer)
 }
 
