@@ -1,5 +1,6 @@
 const images = document.querySelectorAll('.slider #slider-line .items');
 const sliderLine = document.querySelector('.slider #slider-line');
+const dots = document.getElementsByClassName("slider-dots-item");
 let count = 0;
 let width;
 let timer;
@@ -7,7 +8,14 @@ let stepAutoSlider = 3000;//ms
 
 autoSlider();
 
+// document.body.onload = addElement;
+window.addEventListener("resize", init)
+init();
+var my_div = newDiv = null;
+
+
 function init() {
+    addElement();
     console.log('resize');
     width = document.querySelector('.slider').offsetWidth;
     sliderLine.style.width = width * images.length + 'px';
@@ -18,13 +26,15 @@ function init() {
     scrollingSlider();
 }
 
-function scrollingSlider(step) {
+async function scrollingSlider(step, current) {
 
     clearTimeout(timer)
     if (step === "next") {
         count++;
     } else if (step === "prev") {
         count--;
+    }else if(step==="current"){
+        count=current;
     }
 
     if (count + 1 > images.length) {
@@ -33,12 +43,12 @@ function scrollingSlider(step) {
         count = images.length;
     }
     sliderLine.style.transform = 'translate(-' + count * width + 'px';
-
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    dots[count].className += " active";
     autoSlider();
 }
-
-window.addEventListener("resize", init)
-init();
 
 function autoSlider() {
     timer = setTimeout(scrollingSlider, stepAutoSlider, "next")
@@ -53,17 +63,12 @@ document.querySelector('.slider-prev').addEventListener('click', function () {
     scrollingSlider('prev');
 })
 
-
-document.body.onload = addElement;
-var my_div = newDiv = null;
-
-
 async function addElement() {
-    
+
     var divDot = document.createElement("div");
     divDot.className = 'slider-dots'
     for (let i = 0; i < images.length; i++) {
-        divDot.innerHTML += "<span class=\"slider-dots-item\" onclick=\"currentSlide(" + i + ")\"></span>";
+        divDot.innerHTML += "<span class=\"slider-dots-item\" onclick=\"scrollingSlider('current', " + i + ")\"></span>";
     }
 
     my_div = document.getElementById("slider-line");
