@@ -15,10 +15,7 @@ var my_div = newDiv = null;
 
 function removeElements() {
     elements = document.querySelectorAll('.slider-dots')
-
     elements[0].parentNode.removeChild(elements[0]);
-
-
     init();
 }
 
@@ -47,10 +44,10 @@ async function scrollingSlider(step, current) {
 
     if (count + 1 > images.length) {
         count = 0;
-    } else if (count + 1 < 0) {
-        count = images.length;
+    } else if (count < 0) {
+        count = images.length-1;
     }
-    sliderLine.style.transform = 'translate(-' + count * width + 'px';
+    sliderLine.style.transform = 'translate(-' + (count) * width + 'px';
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
@@ -59,6 +56,7 @@ async function scrollingSlider(step, current) {
 }
 
 function autoSlider() {
+    timer = setTimeout(scrollingSlider, stepAutoSlider, "next")
     console.log(timer)
 }
 
